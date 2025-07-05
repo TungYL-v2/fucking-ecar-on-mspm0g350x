@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "ti_msp_dl_config.h": "c",
+        "ml_gpio.h": "c",
+        "clock.h": "c"
+    }
+}
