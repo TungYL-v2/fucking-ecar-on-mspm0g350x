@@ -19,8 +19,7 @@ int if_black = 0;
 #if defined(__TI_COMPILER_VERSION__)
 __attribute__((interrupt, fully_populate_jump_tables))
 #endif
-void
-TIMER_0_INST_IRQHandler(void)
+void TIMER_0_INST_IRQHandler(void)
 {
     switch (DL_TimerG_getPendingInterrupt(TIMER_0_INST))
     {
@@ -42,8 +41,8 @@ TIMER_0_INST_IRQHandler(void)
 #if defined(__TI_COMPILER_VERSION__)
 __attribute__((interrupt, fully_populate_jump_tables))
 #endif
-void
-TIMER_1_INST_IRQHandler(void)
+
+void TIMER_1_INST_IRQHandler(void)
 {
     switch (DL_TimerG_getPendingInterrupt(TIMER_1_INST))
     {
@@ -63,35 +62,12 @@ TIMER_1_INST_IRQHandler(void)
 }
 
 // 以下为串口中断服务函数
-// void USART1_IRQHandler(void)
-//{
-//	if (USART1->SR&0x20)
-//	{
-//		//此处编写中断代码
+void UART_0_INST_IRQHandler(void)
+{
+	
+}
 
-//		USART1->SR &= ~0x20;   //清除标志位
-//	}
-//}
 
-// void USART2_IRQHandler(void)
-//{
-//	if (USART2->SR&0x20)
-//	{
-//		//此处编写中断代码
-
-//		USART2->SR &= ~0x20;   //清除标志位
-//	}
-//}
-
-// void USART3_IRQHandler(void)
-//{
-//	if (USART3->SR&0x20)
-//	{
-//		//此处编写中断代码
-
-//		USART3->SR &= ~0x20;   //清除标志位
-//	}
-//}
 
 ////以下为外部中断服务函数
 void GROUP1_IRQHandler(void)

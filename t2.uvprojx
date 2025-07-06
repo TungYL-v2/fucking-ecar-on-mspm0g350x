@@ -190,7 +190,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -483,6 +483,16 @@
               <FileName>ml_tim.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ml_libs\ml_tim.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_uart.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -14,17 +14,14 @@ int Encoder_count2 = 0;
 int speed_now;
 
 
-//void motor_init()   //初始化motorIO
-//{
-//	pwm_init(TIM_2,TIM2_CH1,1000);   //电机1
-//	gpio_init(GPIO_A,Pin_6,OUT_PP);
-//	gpio_init(GPIO_A,Pin_7,OUT_PP);
-//	
-//	pwm_init(TIM_2,TIM2_CH2,1000);   //电机2
-
-//	gpio_init(GPIO_B,Pin_0,OUT_PP);
-//	gpio_init(GPIO_B,Pin_1,OUT_PP);
-//}
+void motor_init()
+{
+	//启动PWM计时器
+	DL_TimerG_startCounter(PWM_motor_INST);
+	
+	//pwm_init(TIM_2,TIM2_CH1,1000);   //电机1
+	//pwm_init(TIM_2,TIM2_CH2,1000);   //电机2
+}
 
 //-------------------------------------------------------------------------------------------------------------------
 // @brief		控制转速
