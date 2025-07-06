@@ -3,11 +3,11 @@
         {
             "name": "Target 1",
             "includePath": [
-                "c:\\Users\\yv236\\Desktop\\fhh\\mspm0g3507\\t2\\source",
-                "c:\\Users\\yv236\\Desktop\\fhh\\mspm0g3507\\t2\\source\\third_party\\CMSIS\\Core\\Include",
-                "c:\\Users\\yv236\\Desktop\\fhh\\mspm0g3507\\t2\\ml_libs",
-                "c:\\Users\\yv236\\Desktop\\fhh\\mspm0g3507\\t2",
-                "c:\\Users\\yv236\\Desktop\\fhh\\mspm0g3507\\t2\\code",
+                "c:\\Users\\yv236\\Desktop\\fhh\\fucking-ecar-on-mspm0g350x\\source",
+                "c:\\Users\\yv236\\Desktop\\fhh\\fucking-ecar-on-mspm0g350x\\source\\third_party\\CMSIS\\Core\\Include",
+                "c:\\Users\\yv236\\Desktop\\fhh\\fucking-ecar-on-mspm0g350x\\ml_libs",
+                "c:\\Users\\yv236\\Desktop\\fhh\\fucking-ecar-on-mspm0g350x",
+                "c:\\Users\\yv236\\Desktop\\fhh\\fucking-ecar-on-mspm0g350x\\code",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCLANG\\include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux_compat",

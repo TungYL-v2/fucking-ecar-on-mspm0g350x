@@ -8,8 +8,8 @@
 #include "math.h"
 
 //#include "ml_uart.h"
-//#include "ml_tim.h"
-//#include "ml_pwm.h"
+#include "ml_tim.h"
+#include "ml_pwm.h"
 //#include "ml_oled.h"
 //#include "ml_delay.h"
 #include "ml_gpio.h"

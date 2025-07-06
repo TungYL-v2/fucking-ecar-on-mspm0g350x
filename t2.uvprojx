@@ -409,6 +409,11 @@
               <FileType>5</FileType>
               <FilePath>.\ti_msp_dl_config.h</FilePath>
             </File>
+            <File>
+              <FileName>isr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\isr.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -459,10 +464,75 @@
               <FileType>5</FileType>
               <FilePath>.\ml_libs\clock.h</FilePath>
             </File>
+            <File>
+              <FileName>ml_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_pwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_tim.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>code</GroupName>
+          <Files>
+            <File>
+              <FileName>filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\code\filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\code\filter.h</FilePath>
+            </File>
+            <File>
+              <FileName>gray_track.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\code\gray_track.c</FilePath>
+            </File>
+            <File>
+              <FileName>gray_track.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\code\gray_track.h</FilePath>
+            </File>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\code\motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\code\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\code\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\code\pid.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -470,7 +540,14 @@
 
   <RTE>
     <apis/>
-    <components/>
+    <components>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.7.36" url="https://www.keil.com/pack/" vendor="ARM" version="6.1.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+    </components>
     <files/>
   </RTE>
 

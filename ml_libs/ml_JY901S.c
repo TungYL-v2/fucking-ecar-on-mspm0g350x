@@ -60,7 +60,7 @@ void JY901S_GetData(void)
 {
     
     last_yaw = yaw;
-    yaw = JY901S_Read(JY901_REG_YAW) / 32768.0 * 180.0;
+    yaw = JY901S_Read(JY901_REG_YAW) * YAW_SCALE;
     error = fabs(yaw - last_yaw);
     if (error < 0.008)
         ;//yaw_gyro = last_yaw; // yaw_gyro不更新
