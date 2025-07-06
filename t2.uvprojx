@@ -494,6 +494,21 @@
               <FileType>5</FileType>
               <FilePath>.\ml_libs\ml_uart.h</FilePath>
             </File>
+            <File>
+              <FileName>oled_hardware_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\oled_hardware_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled_hardware_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\oled_hardware_i2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>oledfont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\oledfont.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
