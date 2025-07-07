@@ -5,21 +5,21 @@ pid_t motorB;
 pid_t angle;
 //float yaw_gyro;
 
-void datavision_send()  // 上位机波形发送函数
-{
-	// 数据包头
-	uart_sendbyte(UART_1, 0x03);
-	uart_sendbyte(UART_1, 0xfc);
+//void datavision_send()  // 上位机波形发送函数
+//{
+//	// 数据包头
+//	uart_sendbyte(UART_1, 0x03);
+//	uart_sendbyte(UART_1, 0xfc);
 
-	// 发送数据
-	uart_sendbyte(UART_1, (uint8_t)motorA.target);  
-	uart_sendbyte(UART_1, (uint8_t)motorA.now);
-//	uart_sendbyte(UART_1, (uint8_t)motorB.target);  
-//	uart_sendbyte(UART_1, (uint8_t)motorB.now);
-	// 数据包尾
-	uart_sendbyte(UART_1, 0xfc);
-	uart_sendbyte(UART_1, 0x03);
-}
+//	// 发送数据
+//	uart_sendbyte(UART_1, (uint8_t)motorA.target);  
+//	uart_sendbyte(UART_1, (uint8_t)motorA.now);
+////	uart_sendbyte(UART_1, (uint8_t)motorB.target);  
+////	uart_sendbyte(UART_1, (uint8_t)motorB.now);
+//	// 数据包尾
+//	uart_sendbyte(UART_1, 0xfc);
+//	uart_sendbyte(UART_1, 0x03);
+//}
 
 
 void pid_init(pid_t *pid, uint32_t mode, float p, float i, float d)
@@ -71,10 +71,10 @@ void pid_control()
 	// 1.根据灰度传感器信息 设定目标速度
 
 	track();
-	OLED_ShowChar(3,1,'p');
-	OLED_ShowChar(3,2,'i');
-	OLED_ShowChar(3,3,'d');
-	OLED_ShowChar(3,4,'!');
+//	OLED_ShowChar(3,1,'p');
+//	OLED_ShowChar(3,2,'i');
+//	OLED_ShowChar(3,3,'d');
+//	OLED_ShowChar(3,4,'!');
 	
 	// 1.角度环PID输出 设定为速度环的目标值
 	//motor_target_set(-angle.out/20, angle.out/20);

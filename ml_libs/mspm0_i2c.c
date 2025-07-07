@@ -1,29 +1,14 @@
 #include "mspm0_i2c.h"
 
-
+//无需单独调用init
 void I2C_Init(void)
 {
 	SYSCFG_DL_I2C_0_init();
-//    // 1. 使能I2C电源
-//    DL_I2C_enablePower(I2C_0_INST);
-//    
-//    // 2. 配置时钟源和分频
-//    DL_I2C_ClockConfig clockConfig = {
-//        .clockSel = DL_I2C_CLOCK_BUSCLK,  // 使用BUSCLK作为时钟源
-//        .divideRatio = DL_I2C_CLOCK_DIVIDE_4  // 4分频
-//    };
-//    DL_I2C_setClockConfig(I2C_0_INST, &clockConfig);
-//    
-//    // 3. 配置SCL时钟周期 (标准模式100kHz)
-//    DL_I2C_setTimerPeriod(I2C_0_INST, 0x13);  // 根据实际时钟计算
-//    
-//    // 4. 启用I2C控制器
-//    DL_I2C_enableController(I2C_0_INST);
-//    
-//    // 5. 启用时钟拉伸(可选)
-//    DL_I2C_enableControllerClockStretching(I2C_0_INST);
 }
 
+/*
+以下所有函数只针对I2C_0,暂定作用为从JY901S等单一设备获取数据
+*/
 void I2C_Write(uint8_t devAddr, uint8_t reg, uint8_t *data, uint16_t len)
 {
     // 1. 准备发送缓冲区 (寄存器地址+数据)

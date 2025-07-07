@@ -86,35 +86,35 @@ unsigned char digtal(unsigned char channel)//1-8	  获取X通道数字值
 	switch(channel) 
 	{
 		case 1:  
-			if(gpio_get(GPIO_B, Pin_12) == 1) value = 1;
+			if(gpio_get(track_PIN_1_PORT, track_PIN_1_PIN) == 1) value = 1;
 			else value = 0;  
 			break;  
 		case 2: 
-			if(gpio_get(GPIO_B, Pin_13) == 1) value = 1;
+			if(gpio_get(track_PIN_2_PORT, track_PIN_2_PIN) == 1) value = 1;
 			else value = 0;  
 			break;  
 		case 3: 
-			if(gpio_get(GPIO_B, Pin_14) == 1) value = 1;
+			if(gpio_get(track_PIN_3_PORT, track_PIN_3_PIN) == 1) value = 1;
 			else value = 0;  
 			break;   
 		case 4:  
-			if(gpio_get(GPIO_B, Pin_15) == 1) value = 1;
+			if(gpio_get(track_PIN_4_PORT, track_PIN_4_PIN) == 1) value = 1;
 			else value = 0;  
 			break;   
 		case 5:
-			if(gpio_get(GPIO_A, Pin_8) == 1) value = 1;
+			if(gpio_get(track_PIN_5_PORT, track_PIN_5_PIN) == 1) value = 1;
 			else value = 0;  
 			break;
 		case 6:  
-			if(gpio_get(GPIO_C, Pin_13) == 1) value = 1;
+			if(gpio_get(track_PIN_6_PORT, track_PIN_6_PIN) == 1) value = 1;
 			else value = 0;  
 			break;  
 		case 7: 
-			if(gpio_get(GPIO_C, Pin_14) == 1) value = 1;
+			if(gpio_get(track_PIN_7_PORT, track_PIN_7_PIN) == 1) value = 1;
 			else value = 0;  
 			break;  
  		case 8: 
- 			if(gpio_get(GPIO_C, Pin_15) == 1) value = 1;
+ 			if(gpio_get(track_PIN_8_PORT, track_PIN_8_PIN) == 1) value = 1;
  			else value = 0;  
  			break;   
 	}

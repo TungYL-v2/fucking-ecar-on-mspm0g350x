@@ -12,16 +12,15 @@ int Encoder_count1 = 0;
 int Encoder_count2 = 0;
 
 int speed_now;
-void motor_init()   //初始化motorIO
-{
-	pwm_init(TIM_2,TIM2_CH1,1000);   //电机1
-	gpio_init(GPIO_A,Pin_6,OUT_PP);
-	gpio_init(GPIO_A,Pin_7,OUT_PP);
-	
-	pwm_init(TIM_2,TIM2_CH2,1000);   //电机2
 
-	gpio_init(GPIO_B,Pin_0,OUT_PP);
-	gpio_init(GPIO_B,Pin_1,OUT_PP);
+
+void motor_init()
+{
+	//启动PWM计时器
+	DL_TimerG_startCounter(PWM_motor_INST);
+	
+	//pwm_init(TIM_2,TIM2_CH1,1000);   //电机1
+	//pwm_init(TIM_2,TIM2_CH2,1000);   //电机2
 }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -31,24 +30,28 @@ void motor_init()   //初始化motorIO
 //-------------------------------------------------------------------------------------------------------------------
 void motorA_duty(int duty)   //MOTOR_LEFT
 { 
-	pwm_update(TIM_2,TIM2_CH1,duty);  
-	gpio_set(GPIO_A,Pin_6,motorA_dir);
-	gpio_set(GPIO_A,Pin_7,!motorA_dir);
+	pwm_update(PWM_motor_INST,DL_TIMER_CC_0_INDEX,duty);  
+	gpio_set(motor_AIN1_PORT,motor_AIN1_PIN,motorA_dir);
+	gpio_set(motor_AIN2_PORT,motor_AIN2_PIN,!motorA_dir);
 }
 
 void motorB_duty(int duty)   //MOTOR_RIGHT
 {
-	pwm_update(TIM_2,TIM2_CH2,duty);  
-	gpio_set(GPIO_B,Pin_0,motorB_dir);
-	gpio_set(GPIO_B,Pin_1,!motorB_dir);
+	pwm_update(PWM_motor_INST,DL_TIMER_CC_1_INDEX,duty);  
+	gpio_set(motor_BIN1_PORT,motor_BIN1_PIN,motorB_dir);
+	gpio_set(motor_BIN2_PORT,motor_BIN2_PIN,!motorB_dir);
 }
 
-// 编码器IO初始化
-void encoder_init()
+void motor_stop(void)
 {
-	exti_init(EXTI_PA2,FALLING,0);  //E1A
-	gpio_init(GPIO_A,Pin_3,IU);		//E1B
-	
-	exti_init(EXTI_PA4,FALLING,0);
-	gpio_init(GPIO_A,Pin_5,IU);
+	gpio_set(motor_AIN1_PORT,motor_AIN1_PIN,1);
+	gpio_set(motor_AIN2_PORT,motor_AIN2_PIN,1);
+	gpio_set(motor_BIN1_PORT,motor_BIN1_PIN,1);
+	gpio_set(motor_BIN2_PORT,motor_BIN2_PIN,1);
 }
+// 编码器IO初始化
+ void encoder_init()
+ {
+ 	NVIC_EnableIRQ(motor_INT_IRQN);  
+
+ }

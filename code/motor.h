@@ -2,10 +2,11 @@
 #define _motor_h
 #include "headfile.h"
 
-void motor_init(void);
+//void motor_init(void);
 void motorA_duty(int duty);
 void motorB_duty(int duty);
 void encoder_init(void);
+void motor_stop(void);
 
 extern int Encoder_count1, Encoder_count2;
 extern int speed_now;
