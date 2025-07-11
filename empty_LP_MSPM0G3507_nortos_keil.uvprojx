@@ -395,19 +395,14 @@
               <FilePath>.\ti_msp_dl_config.c</FilePath>
             </File>
             <File>
-              <FileName>isr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\isr.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>t2.syscfg</FileName>
+              <FileName>car.syscfg</FileName>
               <FileType>5</FileType>
-              <FilePath>.\t2.syscfg</FilePath>
+              <FilePath>.\car.syscfg</FilePath>
             </File>
           </Files>
         </Group>
@@ -485,36 +480,6 @@
               <FilePath>.\ml_libs\ml_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>ml_JY901S.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ml_libs\ml_JY901S.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_JY901S.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ml_libs\ml_JY901S.h</FilePath>
-            </File>
-            <File>
-              <FileName>ml_pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ml_libs\ml_pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ml_libs\ml_pwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>ml_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ml_libs\ml_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_tim.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ml_libs\ml_tim.h</FilePath>
-            </File>
-            <File>
               <FileName>ml_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ml_libs\ml_uart.c</FilePath>
@@ -548,6 +513,66 @@
               <FileName>oledfont.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ml_libs\oledfont.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_i2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_JY901S.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_JY901S.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_JY901S.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_JY901S.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_lsm6dsv16x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_lsm6dsv16x.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_lsm6dsv16x.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_lsm6dsv16x.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_pwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\ml_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\ml_tim.h</FilePath>
+            </File>
+            <File>
+              <FileName>my_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ml_libs\my_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ml_libs\my_i2c.h</FilePath>
             </File>
           </Files>
         </Group>

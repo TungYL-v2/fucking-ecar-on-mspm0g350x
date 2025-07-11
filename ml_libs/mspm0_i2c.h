@@ -2,6 +2,7 @@
 #define ML_I2C_H
 
 #include "ti_msp_dl_config.h"
+#include <math.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>

@@ -45,7 +45,14 @@ void I2C_Read(uint8_t devAddr, uint8_t reg, uint8_t *data, uint16_t len)
     
     // 3. ¶ÁÈ¡Êı¾İ
     for(uint16_t i = 0; i < len; i++) {
-        while(DL_I2C_isControllerRXFIFOEmpty(I2C_0_INST));
+        while(DL_I2C_isControllerRXFIFOEmpty(I2C_0_INST))
+        {
+            uint32_t status = DL_I2C_getControllerStatus(I2C_0_INST);
+            printf("status:%x\r\n",status);
+            // uart_send_uint32(UART_0_INST, status);
+            // uart_sendstr(UART_0_INST, "\r\n");
+        }
+
         data[i] = DL_I2C_receiveControllerData(I2C_0_INST);
     }
 }

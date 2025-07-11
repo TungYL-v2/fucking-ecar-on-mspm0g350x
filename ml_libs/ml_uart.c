@@ -50,6 +50,15 @@ void uart_init(IRQn_Type IRQn)
     NVIC_EnableIRQ(IRQn);
 }
 
+void uart_send_uint32(UART_Regs *uart, uint32_t data) 
+{
+    // 按小端序（Little-Endian）发送
+    uart_sendbyte(uart, (uint8_t)(data >> 0));   // 发送最低字节
+    uart_sendbyte(uart, (uint8_t)(data >> 8));
+    uart_sendbyte(uart, (uint8_t)(data >> 16));
+    uart_sendbyte(uart, (uint8_t)(data >> 24));  // 发送最高字节
+}
+
 
 //-------------------------------------------------------------------------------------------------------------------
 // @brief		串口发送字节
