@@ -17,6 +17,9 @@
 #include "clock.h"
 #include "oled_hardware_i2c.h"
 #include "ml_tim.h"
+#include "step_motor.h"
+// #include "42step_motor.h"
+
 #include "./code/motor.h"
 #include "./code/pid.h"
 #include "./code/gray_track.h"

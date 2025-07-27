@@ -13,7 +13,8 @@ C_SRCS += \
 ../ml_libs/ml_tim.c \
 ../ml_libs/ml_uart.c \
 ../ml_libs/my_i2c.c \
-../ml_libs/oled_hardware_i2c.c 
+../ml_libs/oled_hardware_i2c.c \
+../ml_libs/step_motor.c 
 
 C_DEPS += \
 ./ml_libs/clock.d \
@@ -23,7 +24,8 @@ C_DEPS += \
 ./ml_libs/ml_tim.d \
 ./ml_libs/ml_uart.d \
 ./ml_libs/my_i2c.d \
-./ml_libs/oled_hardware_i2c.d 
+./ml_libs/oled_hardware_i2c.d \
+./ml_libs/step_motor.d 
 
 OBJS += \
 ./ml_libs/clock.o \
@@ -33,7 +35,8 @@ OBJS += \
 ./ml_libs/ml_tim.o \
 ./ml_libs/ml_uart.o \
 ./ml_libs/my_i2c.o \
-./ml_libs/oled_hardware_i2c.o 
+./ml_libs/oled_hardware_i2c.o \
+./ml_libs/step_motor.o 
 
 OBJS__QUOTED += \
 "ml_libs\clock.o" \
@@ -43,7 +46,8 @@ OBJS__QUOTED += \
 "ml_libs\ml_tim.o" \
 "ml_libs\ml_uart.o" \
 "ml_libs\my_i2c.o" \
-"ml_libs\oled_hardware_i2c.o" 
+"ml_libs\oled_hardware_i2c.o" \
+"ml_libs\step_motor.o" 
 
 C_DEPS__QUOTED += \
 "ml_libs\clock.d" \
@@ -53,7 +57,8 @@ C_DEPS__QUOTED += \
 "ml_libs\ml_tim.d" \
 "ml_libs\ml_uart.d" \
 "ml_libs\my_i2c.d" \
-"ml_libs\oled_hardware_i2c.d" 
+"ml_libs\oled_hardware_i2c.d" \
+"ml_libs\step_motor.d" 
 
 C_SRCS__QUOTED += \
 "../ml_libs/clock.c" \
@@ -63,6 +68,7 @@ C_SRCS__QUOTED += \
 "../ml_libs/ml_tim.c" \
 "../ml_libs/ml_uart.c" \
 "../ml_libs/my_i2c.c" \
-"../ml_libs/oled_hardware_i2c.c" 
+"../ml_libs/oled_hardware_i2c.c" \
+"../ml_libs/step_motor.c" 
 
 

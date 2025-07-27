@@ -14,6 +14,7 @@
 "./ml_libs/ml_uart.o"
 "./ml_libs/my_i2c.o"
 "./ml_libs/oled_hardware_i2c.o"
+"./ml_libs/step_motor.o"
 -l"./device_linker.cmd"
 -ldevice.cmd.genlibs
 -llibc.a

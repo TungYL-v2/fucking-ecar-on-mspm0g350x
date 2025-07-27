@@ -26,6 +26,7 @@ ORDERED_OBJS += \
 "./ml_libs/ml_uart.o" \
 "./ml_libs/my_i2c.o" \
 "./ml_libs/oled_hardware_i2c.o" \
+"./ml_libs/step_motor.o" \
 $(GEN_CMDS__FLAG) \
 -Wl,-ldevice.cmd.genlibs \
 -Wl,-llibc.a \
@@ -160,8 +161,8 @@ car_3507_utf-8.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "isr.o" "main.o" "code\filter.o" "code\gray_track.o" "code\motor.o" "code\pid.o" "ml_libs\clock.o" "ml_libs\ml_JY901S.o" "ml_libs\ml_gpio.o" "ml_libs\ml_pwm.o" "ml_libs\ml_tim.o" "ml_libs\ml_uart.o" "ml_libs\my_i2c.o" "ml_libs\oled_hardware_i2c.o" 
-	-$(RM) "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "isr.d" "main.d" "code\filter.d" "code\gray_track.d" "code\motor.d" "code\pid.d" "ml_libs\clock.d" "ml_libs\ml_JY901S.d" "ml_libs\ml_gpio.d" "ml_libs\ml_pwm.d" "ml_libs\ml_tim.d" "ml_libs\ml_uart.d" "ml_libs\my_i2c.d" "ml_libs\oled_hardware_i2c.d" 
+	-$(RM) "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "isr.o" "main.o" "code\filter.o" "code\gray_track.o" "code\motor.o" "code\pid.o" "ml_libs\clock.o" "ml_libs\ml_JY901S.o" "ml_libs\ml_gpio.o" "ml_libs\ml_pwm.o" "ml_libs\ml_tim.o" "ml_libs\ml_uart.o" "ml_libs\my_i2c.o" "ml_libs\oled_hardware_i2c.o" "ml_libs\step_motor.o" 
+	-$(RM) "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "isr.d" "main.d" "code\filter.d" "code\gray_track.d" "code\motor.d" "code\pid.d" "ml_libs\clock.d" "ml_libs\ml_JY901S.d" "ml_libs\ml_gpio.d" "ml_libs\ml_pwm.d" "ml_libs\ml_tim.d" "ml_libs\ml_uart.d" "ml_libs\my_i2c.d" "ml_libs\oled_hardware_i2c.d" "ml_libs\step_motor.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -93,7 +93,7 @@
                         </toolChain>
                     </folderInfo>
                     <sourceEntries>
-                        <entry excluding="ml_libs/mspm0_i2c.c|ml_libs/ml_lsm6dsv16x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+                        <entry excluding="ml_libs/42step_motor.c|ml_libs/mspm0_i2c.c|ml_libs/ml_lsm6dsv16x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
                     </sourceEntries>
                 </configuration>
             </storageModule>
