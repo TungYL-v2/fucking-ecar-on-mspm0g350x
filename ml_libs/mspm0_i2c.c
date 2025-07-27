@@ -1,54 +1,54 @@
 #include "mspm0_i2c.h"
 
-//ÎÞÐèµ¥¶Àµ÷ÓÃinit
+//æ— éœ€å•ç‹¬è°ƒç”¨init
 void I2C_Init(void)
 {
 	SYSCFG_DL_I2C_0_init();
 }
 
 /*
-ÒÔÏÂËùÓÐº¯ÊýÖ»Õë¶ÔI2C_0,ÔÝ¶¨×÷ÓÃÎª´ÓJY901SµÈµ¥Ò»Éè±¸»ñÈ¡Êý¾Ý
+ä»¥ä¸‹æ‰€æœ‰å‡½æ•°åªé’ˆå¯¹I2C_0,æš‚å®šä½œç”¨ä¸ºä»ŽJY901Sç­‰å•ä¸€è®¾å¤‡èŽ·å–æ•°æ®
 */
 void I2C_Write(uint8_t devAddr, uint8_t reg, uint8_t *data, uint16_t len)
 {
-    // 1. ×¼±¸·¢ËÍ»º³åÇø (¼Ä´æÆ÷µØÖ·+Êý¾Ý)
+    // 1. å‡†å¤‡å‘é€ç¼“å†²åŒº (å¯„å­˜å™¨åœ°å€+æ•°æ®)
     uint8_t buffer[len + 1];
     buffer[0] = reg;
     memcpy(&buffer[1], data, len);
     
-    // 2. Æô¶¯´«Êä
+    // 2. å¯åŠ¨ä¼ è¾“
     DL_I2C_startControllerTransfer(I2C_0_INST, devAddr, 
         DL_I2C_CONTROLLER_DIRECTION_TX, len + 1);
     
-    // 3. Ìî³äTX FIFO
+    // 3. å¡«å……TX FIFO
     DL_I2C_fillControllerTXFIFO(I2C_0_INST, buffer, len + 1);
     
-    // 4. µÈ´ý´«ÊäÍê³É
+    // 4. ç­‰å¾…ä¼ è¾“å®Œæˆ
     while(!(DL_I2C_getControllerStatus(I2C_0_INST) & 
            DL_I2C_CONTROLLER_STATUS_IDLE));
 }
 
 void I2C_Read(uint8_t devAddr, uint8_t reg, uint8_t *data, uint16_t len)
 {
-    // 1. ÏÈÐ´Èë¼Ä´æÆ÷µØÖ·
+    // 1. å…ˆå†™å…¥å¯„å­˜å™¨åœ°å€
     DL_I2C_startControllerTransfer(I2C_0_INST, devAddr, 
         DL_I2C_CONTROLLER_DIRECTION_TX, 1);
     DL_I2C_transmitControllerData(I2C_0_INST, reg);
     
-    // µÈ´ý´«ÊäÍê³É
+    // ç­‰å¾…ä¼ è¾“å®Œæˆ
     while(!(DL_I2C_getControllerStatus(I2C_0_INST) & 
            DL_I2C_CONTROLLER_STATUS_IDLE));
     
-    // 2. Æô¶¯¶ÁÈ¡
+    // 2. å¯åŠ¨è¯»å–
     DL_I2C_startControllerTransfer(I2C_0_INST, devAddr, 
         DL_I2C_CONTROLLER_DIRECTION_RX, len);
     
-    // 3. ¶ÁÈ¡Êý¾Ý
+    // 3. è¯»å–æ•°æ®
     for(uint16_t i = 0; i < len; i++) {
         while(DL_I2C_isControllerRXFIFOEmpty(I2C_0_INST))
         {
             uint32_t status = DL_I2C_getControllerStatus(I2C_0_INST);
-            printf("status:%x\r\n",status);
+            // printf("status:%x\r\n",status);
             // uart_send_uint32(UART_0_INST, status);
             // uart_sendstr(UART_0_INST, "\r\n");
         }

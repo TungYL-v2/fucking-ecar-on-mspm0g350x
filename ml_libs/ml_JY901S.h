@@ -4,6 +4,7 @@
 #include "stdint.h"
 #include "ti_msp_dl_config.h"
 #include "mspm0_i2c.h"
+#include "my_i2c.h"
 #include "math.h"
 #include "clock.h"
 
@@ -191,7 +192,7 @@ extern const float YAW_SCALE;
 void JY901S_Write(uint8_t reg, uint16_t dat);
 uint16_t JY901S_Read(uint8_t reg);
 void JY901S_Init(void);
-void JY901S_GetData(void);
+void JY61P_GetData(void);
 
 
 #endif

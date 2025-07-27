@@ -1,9 +1,9 @@
 #include "filter.h"
 
-// »¥²¹ÂË²¨²ÎÊý
+// äº’è¡¥æ»¤æ³¢å‚æ•°
 #define alpha  0.95238
 
-// ¿¨¶ûÂüÂË²¨²ÎÊý
+// å¡å°”æ›¼æ»¤æ³¢å‚æ•°
 KF_t KF_Yaw = {
 	0.001,            // Q_angle
 	0.003,            // Q_bias
@@ -29,35 +29,35 @@ KF_t KF_Pitch = {
 };
 
 
-// »¥²¹ÂË²¨
+// äº’è¡¥æ»¤æ³¢
 float Mahony_Filter(float gyro, float acc)
 {
 	return (alpha * gyro + (1 - alpha) * acc);
 }
 
 
-// ¿¨¶ûÂüÂË²¨
+// å¡å°”æ›¼æ»¤æ³¢
 float Kalman_Filter(KF_t *kf, float obsValue, float ut)		
 {
-  // ¼ÆËãÏÈÑé¹À¼ÆÖµ
+  // è®¡ç®—å…ˆéªŒä¼°è®¡å€¼
 	kf->Angle = kf->Angle + (ut - kf->Gyro_bias) * kf->dt;
 	kf->Gyro_bias = kf->Gyro_bias;
 	
-	// ¼ÆËãÏÈÑéÎó²îÐ­·½²î
+	// è®¡ç®—å…ˆéªŒè¯¯å·®åæ–¹å·®
 	kf->P[0][0] = kf->P[0][0] - (kf->P[0][1] + kf->P[1][0]) * kf->dt + kf->P[1][1] * kf->dt * kf->dt + kf->Q_angle;
 	kf->P[0][1] = kf->P[0][1] - kf->P[1][1] * kf->dt;
 	kf->P[1][0] = kf->P[1][0] - kf->P[1][1] * kf->dt;
 	kf->P[1][1] = kf->P[1][1] + kf->Q_bias;
 	
-	// ¸üÐÂ¿¨¶ûÂüÔöÒæ
+	// æ›´æ–°å¡å°”æ›¼å¢žç›Š
 	kf->K1 = kf->P[0][0] / (kf->P[0][0] + kf->R);
 	kf->K2 = kf->P[1][0] / (kf->P[0][0] + kf->R);
 	
-	// ¸üÐÂ¹À¼ÆÖµ
+	// æ›´æ–°ä¼°è®¡å€¼
 	kf->Angle = kf->Angle + kf->K1 * (obsValue - kf->Angle);
 	kf->Gyro_bias = kf->Gyro_bias + kf->K2 * (obsValue - kf->Angle);
 	
-	// ¸üÐÂÎó²îÐ­·½²î
+	// æ›´æ–°è¯¯å·®åæ–¹å·®
 	kf->P[0][0] = (1 - kf->K1) * kf->P[0][0];
 	kf->P[0][1] = (1 - kf->K1) * kf->P[0][1];
 	kf->P[1][0] = kf->P[1][0] - kf->P[0][0] * kf->K2;

@@ -5,21 +5,21 @@ pid_t motorB;
 pid_t angle;
 //float yaw_gyro;
 
-//void datavision_send()  // ÉÏÎ»»ú²¨ĞÎ·¢ËÍº¯Êı
-//{
-//	// Êı¾İ°üÍ·
-//	uart_sendbyte(UART_1, 0x03);
-//	uart_sendbyte(UART_1, 0xfc);
+// void datavision_send()  // ä¸Šä½æœºæ³¢å½¢å‘é€å‡½æ•°
+// {
+// 	// æ•°æ®åŒ…å¤´
+// 	uart_sendbyte(UART_1, 0x03);
+// 	uart_sendbyte(UART_1, 0xfc);
 
-//	// ·¢ËÍÊı¾İ
-//	uart_sendbyte(UART_1, (uint8_t)motorA.target);  
-//	uart_sendbyte(UART_1, (uint8_t)motorA.now);
-////	uart_sendbyte(UART_1, (uint8_t)motorB.target);  
-////	uart_sendbyte(UART_1, (uint8_t)motorB.now);
-//	// Êı¾İ°üÎ²
-//	uart_sendbyte(UART_1, 0xfc);
-//	uart_sendbyte(UART_1, 0x03);
-//}
+// 	// å‘é€æ•°æ®
+// 	uart_sendbyte(UART_1, (uint8_t)motorA.target);  
+// 	uart_sendbyte(UART_1, (uint8_t)motorA.now);
+// //	uart_sendbyte(UART_1, (uint8_t)motorB.target);  
+// //	uart_sendbyte(UART_1, (uint8_t)motorB.now);
+// 	// æ•°æ®åŒ…å°¾
+// 	uart_sendbyte(UART_1, 0xfc);
+// 	uart_sendbyte(UART_1, 0x03);
+// }
 
 
 void pid_init(pid_t *pid, uint32_t mode, float p, float i, float d)
@@ -30,7 +30,7 @@ void pid_init(pid_t *pid, uint32_t mode, float p, float i, float d)
 	pid->d = d;
 }
 
-void motor_target_set(int spe1, int spe2)
+void motor_target_set(uint8_t spe1, uint8_t spe2)
 {
 
 	if(spe1 >= 0)
@@ -57,39 +57,62 @@ void motor_target_set(int spe1, int spe2)
 }
 
 
-void pid_control()
+void pid_control_line(uint8_t spe1,uint8_t spe2)
 {
-//	// ½Ç¶È»·
-//	// 1.Éè¶¨Ä¿±ê½Ç¶È
-//	angle.target = -111;
-//	// 2.»ñÈ¡µ±Ç°½Ç¶È
-//	angle.now = yaw_Kalman;
-//	// 3.PID¿ØÖÆÆ÷¼ÆËãÊä³ö
-//	pid_cal(&angle);
+	if(spe1 >= 0)
+	{
+		motorA_dir = 1;
+		motorA.target = spe1;
+	}
+	else
+	{
+		motorA_dir = 0;
+		motorA.target = -spe1;
+	}
 	
-	// ËÙ¶È»·
-	// 1.¸ù¾İ»Ò¶È´«¸ĞÆ÷ĞÅÏ¢ Éè¶¨Ä¿±êËÙ¶È
-
-	track();
-//	OLED_ShowChar(3,1,'p');
-//	OLED_ShowChar(3,2,'i');
-//	OLED_ShowChar(3,3,'d');
-//	OLED_ShowChar(3,4,'!');
-	
-	// 1.½Ç¶È»·PIDÊä³ö Éè¶¨ÎªËÙ¶È»·µÄÄ¿±êÖµ
-	//motor_target_set(-angle.out/20, angle.out/20);
-	// 2.»ñÈ¡µ±Ç°ËÙ¶È
-	if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
-	if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
-	Encoder_count1 = 0;
-	Encoder_count2 = 0;
-	// 3.ÊäÈëPID¿ØÖÆÆ÷½øĞĞ¼ÆËã
+	if(spe2 >= 0)
+	{
+		motorB_dir = 1;
+		motorB.target = spe2;
+	}
+	else
+	{
+		motorB_dir = 0;
+		motorB.target = -spe2;
+	}
+	// if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+	// if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+	// Encoder_count1 = 0;
+	// Encoder_count2 = 0;
+	// ç”µæœºçŠ¶æ€è¾“å…¥pidæ§åˆ¶å™¨(ä¼ å…¥ç»“æ„ä½“åœ°å€)
 	pid_cal(&motorA);
 	pid_cal(&motorB);
-	// µç»úÊä³öÏŞ·ù
+	// ç”µæœºè¾“å‡ºé™å¹…
 	pidout_limit(&motorA);
 	pidout_limit(&motorB);
-	// 4.PIDµÄÊä³öÖµ ÊäÈë¸øµç»ú
+	// è¾“å…¥PIDè¾“å‡ºå€¼
+	motorA_duty(motorA.out);
+	motorB_duty(motorB.out);
+	
+	//datavision_send();
+}
+
+void pid_control()
+{
+	// ç°åº¦ä¼ æ„Ÿå™¨è°ƒèŠ‚é€Ÿåº¦
+	track();
+
+	// if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+	// if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+	// Encoder_count1 = 0;
+	// Encoder_count2 = 0;
+
+	pid_cal(&motorA);
+	pid_cal(&motorB);
+
+	pidout_limit(&motorA);
+	pidout_limit(&motorB);
+
 	motorA_duty(motorA.out);
 	motorB_duty(motorB.out);
 	
@@ -98,60 +121,64 @@ void pid_control()
 
 void pid_control_angle(int ang)
 {
-//    // ½Ç¶È»·
-//    // 1.Éè¶¨Ä¿±ê½Ç¶È
-    angle.target = ang;
-//    // 2.»ñÈ¡µ±Ç°½Ç¶È
-    angle.now = yaw_gyro;
-//    // 3.PID¿ØÖÆÆ÷¼ÆËãÊä³ö
-    pid_cal(&angle);
-    
-    // ËÙ¶È»·
-    // 1.¸ù¾İ»Ò¶È´«¸ĞÆ÷ĞÅÏ¢ Éè¶¨Ä¿±êËÙ¶È
 
-    //track();
-    
-    // 1.½Ç¶È»·PIDÊä³ö Éè¶¨ÎªËÙ¶È»·µÄÄ¿±êÖµ
-//	if(fabs(angle.out)>10)
-//	{
-//		if(angle.out<0)	angle.out=-1;
-//		else angle.out=1;
-//	}
-    motor_target_set(-angle.out, angle.out);
-    // 2.»ñÈ¡µ±Ç°ËÙ¶È
-    if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
-    if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
-    Encoder_count1 = 0;
-    Encoder_count2 = 0;
-    // 3.ÊäÈëPID¿ØÖÆÆ÷½øĞĞ¼ÆËã
+	// è®¾å®šç›®æ ‡è§’åº¦
+    angle.target = ang;
+	// ä¼ å…¥å½“å‰è§’åº¦
+    angle.now = yaw_gyro;
+	// ä¼ å…¥PIDæ§åˆ¶å™¨
+    pid_cal(&angle);
+    // motor_target_set(-angle.out, angle.out);
+	if(angle.out >= 0)
+	{
+		motorA_dir = 0;
+		motorA.target =angle.out;
+		motorB_dir = 1;
+		motorB.target = angle.out;
+	}
+	else
+	{
+		motorA_dir = 1;
+		motorA.target = -angle.out;
+		motorB_dir = 0;
+		motorB.target = -angle.out;
+	}
+
+    // if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+    // if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+    // Encoder_count1 = 0;
+    // Encoder_count2 = 0;
+
     pid_cal(&motorA);
     pid_cal(&motorB);
-    // µç»úÊä³öÏŞ·ù
+    // é™å¹…
 //    pidout_limit(&motorA);
 //    pidout_limit(&motorB);
     pidout_limit_angle(&motorA);
     pidout_limit_angle(&motorB);
-    // 4.PIDµÄÊä³öÖµ ÊäÈë¸øµç»ú
+    // 4.PIDç»“æœåé¦ˆç»™ç”µæœº
     motorA_duty(motorA.out);
     motorB_duty(motorB.out);
     
     //datavision_send();
 }
 
+
+
 void pid_cal(pid_t *pid)
 {
-	// ¼ÆËãµ±Ç°Æ«²î
+	// è®¡ç®—å½“å‰è¯¯å·®ï¼Œå­˜å…¥error[0]
 	pid->error[0] = pid->target - pid->now;
 
-	// ¼ÆËãÊä³ö
-	if(pid->pid_mode == DELTA_PID)  // ÔöÁ¿Ê½
+	// è®¡ç®—è¾“å‡º
+	if(pid->pid_mode == DELTA_PID)  // å¢é‡å¼
 	{
 		pid->pout = pid->p * (pid->error[0] - pid->error[1]);
 		pid->iout = pid->i * pid->error[0];
 		pid->dout = pid->d * (pid->error[0] - 2 * pid->error[1] + pid->error[2]);
 		pid->out += pid->pout + pid->iout + pid->dout;
 	}
-	else if(pid->pid_mode == POSITION_PID)  // Î»ÖÃÊ½
+	else if(pid->pid_mode == POSITION_PID)  // ä½ç½®å¼
 	{
 		pid->pout = pid->p * pid->error[0];
 		pid->iout += pid->i * pid->error[0];
@@ -159,11 +186,11 @@ void pid_cal(pid_t *pid)
 		pid->out = pid->pout + pid->iout + pid->dout;
 	}
 
-	// ¼ÇÂ¼Ç°Á½´ÎÆ«²î
+	// è®°å½•å‰ä¸¤æ¬¡åå·®
 	pid->error[2] = pid->error[1];
 	pid->error[1] = pid->error[0];
 
-	// Êä³öÏŞ·ù
+	// è¾“å‡ºé™å¹…
 //	if(pid->out>=MAX_DUTY)	
 //		pid->out=MAX_DUTY;
 //	if(pid->out<=0)	
@@ -173,7 +200,7 @@ void pid_cal(pid_t *pid)
 
 void pidout_limit(pid_t *pid)
 {
-	// Êä³öÏŞ·ù
+	// è¾“å‡ºé™å¹…
 	if(pid->out>=MAX_DUTY)	
 		pid->out=MAX_DUTY;
 	if(pid->out<=0)	
@@ -182,9 +209,9 @@ void pidout_limit(pid_t *pid)
 
 void pidout_limit_angle(pid_t *pid)
 {
-	// Êä³öÏŞ·ù
-	if(pid->out>=10000)	
-		pid->out=10000;
+	// è¾“å‡ºé™å¹…
+	if(pid->out>=12000)	
+		pid->out=12000;
 	if(pid->out<=0)	
 		pid->out=0;
 }

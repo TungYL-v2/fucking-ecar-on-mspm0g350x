@@ -1,23 +1,24 @@
-#include "headfile.h"
+#include "ml_tim.h"
 
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// @brief		Æô¶¯¶¨Ê±Æ÷ÖĞ¶Ï
-// @param	  gptimer		Ñ¡Ôñ¶¨Ê±Æ÷
-// @param	  IRQn			¶¨Ê±Æ÷ÖĞ¶ÏÇëÇóºÅ
-// @param	  priority    	ÓÅÏÈ¼¶
+// @brief		å¯åŠ¨å®šæ—¶å™¨ä¸­æ–­
+// @param	  gptimer		é€‰æ‹©å®šæ—¶å™¨
+// @param	  IRQn			å®šæ—¶å™¨ä¸­æ–­è¯·æ±‚å·
+// @param	  priority    	ä¼˜å…ˆçº§
 // @return		void  
 // Sample usage:	tim_interrupt_ms_init(TIMER_0_INST_INT_IRQN, TIMER_0_INST, 0);     
 //-------------------------------------------------------------------------------------------------------------------
 void tim_interrupt_ms_init(IRQn_Type IRQn, GPTIMER_Regs *gptimer, uint32_t priority)
 {	
 	
-	NVIC_SetPriority(IRQn, priority);		//ÉèÖÃÓÅÏÈ¼¶
-    NVIC_EnableIRQ(IRQn);					//Ê¹ÄÜ¶¨Ê±Æ÷ÖĞ¶Ï
-    DL_TimerG_startCounter(gptimer);	//¿ªÆô¶¨Ê±Æ÷
+	NVIC_SetPriority(IRQn, priority);		//è®¾ç½®ä¼˜å…ˆçº§
+    NVIC_ClearPendingIRQ(IRQn);
+    NVIC_EnableIRQ(IRQn);					//ä½¿èƒ½å®šæ—¶å™¨ä¸­æ–­
+    DL_TimerG_startCounter(gptimer);	//å¼€å¯å®šæ—¶å™¨
 	
-	//¶¨Ê±Æ÷ÖÜÆÚÔÚsysconfigÀïTIMERµÄDesired Timer PeriodÉèÖÃ
+	//å®šæ—¶å™¨å‘¨æœŸåœ¨sysconfigé‡ŒTIMERçš„Desired Timer Periodè®¾ç½®
 }
 
 

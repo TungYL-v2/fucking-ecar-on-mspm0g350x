@@ -6,7 +6,7 @@ int if_stop;
 int transformation = 0;
 int if_black = 0;
 
-// ÒÔÏÂÎª¶¨Ê±Æ÷ÖÐ¶Ï·þÎñº¯Êý
+// ä»¥ä¸‹ä¸ºå®šæ—¶å™¨ä¸­æ–­æœåŠ¡å‡½æ•°
 /*
  * Using __attribute__((interrupt, fully_populate_jump_tables)) in TI CLANG
  * compiler can eliminate non-deterministic control flow by using fully
@@ -16,16 +16,21 @@ int if_black = 0;
  * of the jump table
  */
 
-#if defined(__TI_COMPILER_VERSION__)
-__attribute__((interrupt, fully_populate_jump_tables))
-#endif
+// #if defined(__TI_COMPILER_VERSION__)
+// __attribute__((interrupt, fully_populate_jump_tables))
+// #endif
+volatile uint8_t num = 0;
 void TIMER_0_INST_IRQHandler(void)
 {
     switch (DL_TimerG_getPendingInterrupt(TIMER_0_INST))
     {
     case DL_TIMERG_IIDX_ZERO:
-        // ÖÐ¶Ï´úÂë
-
+        // ä¸­æ–­ä»£ç 
+        if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+	    if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+	    Encoder_count1 = 0;
+	    Encoder_count2 = 0;
+        // num ++;
         break;
     case DL_TIMERG_IIDX_LOAD:
     case DL_TIMERG_IIDX_CC0_DN:
@@ -38,86 +43,133 @@ void TIMER_0_INST_IRQHandler(void)
     }
 }
 
-#if defined(__TI_COMPILER_VERSION__)
-__attribute__((interrupt, fully_populate_jump_tables))
-#endif
+// #if defined(__TI_COMPILER_VERSION__)
+// __attribute__((interrupt, fully_populate_jump_tables))
+// #endif
 
-void TIMER_1_INST_IRQHandler(void)
+// void TIMER_1_INST_IRQHandler(void)
+// {
+//     switch (DL_TimerG_getPendingInterrupt(TIMER_1_INST))
+//     {
+//     case DL_TIMERG_IIDX_ZERO:
+//         // ä¸­æ–­ä»£ç 
+
+//         break;
+//     case DL_TIMERG_IIDX_LOAD:
+//     case DL_TIMERG_IIDX_CC0_DN:
+//     case DL_TIMERG_IIDX_CC1_DN:
+//     case DL_TIMERG_IIDX_CC0_UP:
+//     case DL_TIMERG_IIDX_CC1_UP:
+//     case DL_TIMERG_IIDX_OVERFLOW:
+//     default:
+//         break;
+//     }
+// }
+
+// volatile uint8_t gEchoData = 0;
+
+// ä»¥ä¸‹ä¸ºä¸²å£ä¸­æ–­æœåŠ¡å‡½æ•°
+void UART_0_INST_IRQHandler(void)
 {
-    switch (DL_TimerG_getPendingInterrupt(TIMER_1_INST))
-    {
-    case DL_TIMERG_IIDX_ZERO:
-        // ÖÐ¶Ï´úÂë
-
-        break;
-    case DL_TIMERG_IIDX_LOAD:
-    case DL_TIMERG_IIDX_CC0_DN:
-    case DL_TIMERG_IIDX_CC1_DN:
-    case DL_TIMERG_IIDX_CC0_UP:
-    case DL_TIMERG_IIDX_CC1_UP:
-    case DL_TIMERG_IIDX_OVERFLOW:
-    default:
-        break;
+    switch (DL_UART_Main_getPendingInterrupt(UART_0_INST)) {
+        case DL_UART_MAIN_IIDX_RX:
+            // uart_sendbyte(UART_0_INST, gz);
+            
+            break;
+        default:
+            break;
     }
 }
 
 volatile uint8_t gEchoData = 0;
 
-// ÒÔÏÂÎª´®¿ÚÖÐ¶Ï·þÎñº¯Êý
-// void UART_0_INST_IRQHandler(void)
-// {
-//     switch (DL_UART_Main_getPendingInterrupt(UART_0_INST)) {
-//         case DL_UART_MAIN_IIDX_RX:
-//             gEchoData = DL_UART_Main_receiveData(UART_0_INST);
-//             DL_UART_Main_transmitData(UART_0_INST, gEchoData);
-//             break;
-//         default:
-//             break;
-//     }
-// }
+void UART_1_INST_IRQHandler(void)
+{
+    switch (DL_UART_Main_getPendingInterrupt(UART_1_INST)) 
+    {
+        case DL_UART_MAIN_IIDX_RX:
+            gEchoData = DL_UART_receiveData(UART_1_INST);
+            //sprintf(txbuf,"%c\r\n", gEchoData);
+            // DL_UART_Main_transmitDataBlocking(UART_0_INST, gEchoData);
+            switch (gEchoData) 
+            {
+                case 'l':
+                    printf("turn left\r\n");
+                    break;
+                case 'r':
+                    printf("turn right\r\n");
+                    break;
+                default:
+                    break;
+            }
+            
+            // uart_sendbyte(UART_0_INST,gEchoData);
+            // OLED_ShowChar(5, 5, gEchoData, 8);
+            DL_UART_clearInterruptStatus(UART_1_INST, DL_UART_MAIN_IIDX_RX);
+            break;
+        default:
+            break;
+    }
+    
+}
 
 
 
-////ÒÔÏÂÎªÍâ²¿ÖÐ¶Ï·þÎñº¯Êý
+////ä»¥ä¸‹ä¸ºå¤–éƒ¨ä¸­æ–­æœåŠ¡å‡½æ•°
 void GROUP1_IRQHandler(void)
 {
     /*
      * Get the pending interrupt for the GPIOA port and store for
      * comparisons later
      */
-    uint32_t gpioA = DL_GPIO_getEnabledInterruptStatus(GPIOA, motor_E1A_PIN | motor_E2A_PIN);
+    uint32_t gpioA = DL_GPIO_getEnabledInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
+    uint32_t gpioB = DL_GPIO_getEnabledInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
 
     /*
      * Bitwise AND the pending interrupt with the pin you want to check,
      * then check if it is equal to the pins. Clear the interrupt status.
      */
-    if ((gpioA & motor_E1A_PIN) != 0)
+
+
+    if ((gpioA & motor_E1A_PIN) == motor_E1A_PIN)
     {
         if(gpio_get(motor_E1B_PORT, motor_E1B_PIN))
 			Encoder_count1 --;
 		else
 			Encoder_count1 ++;
+        DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
     }
 
-    if ((gpioA & motor_E2A_PIN) != 0)
+    // else if ((gpioA & motor_E1B_PIN) == motor_E1B_PIN)
+    // {
+    //     if(gpio_get(motor_E1A_PORT, motor_E1A_PIN))
+	// 		Encoder_count1 ++;
+	// 	else
+	// 		Encoder_count1 --;
+    //     DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1B_PIN);
+    // }
+    
+    
+
+    if ((gpioB & motor_E2A_PIN) == motor_E2A_PIN)
     {
         if(gpio_get(motor_E2B_PORT, motor_E2B_PIN))
-			Encoder_count2 --;
-		else
 			Encoder_count2 ++;
+		else
+			Encoder_count2 --;
+        DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
     }
 
-    /* Repeat with GPIOB Port */
-//    uint32_t gpioB = DL_GPIO_getEnabledInterruptStatus(
-//        GPIOB, GPIO_SWITCHES_USER_SWITCH_2_PIN);
+    // else if ((gpioB & motor_E2B_PIN) == motor_E2B_PIN)
+    // {
+    //     if(gpio_get(motor_E2A_PORT, motor_E2A_PIN))
+	// 		Encoder_count2 --;
+	// 	else
+	// 		Encoder_count2 ++;
+    //     DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2B_PIN);
+    // }
 
-//    if ((gpioB & GPIO_SWITCHES_USER_SWITCH_2_PIN) ==
-//        GPIO_SWITCHES_USER_SWITCH_2_PIN)
-//    {
-//        DL_GPIO_togglePins(
-//            GPIO_LEDS_USER_LED_2_PORT, GPIO_LEDS_USER_LED_2_PIN);
-//        DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_USER_SWITCH_2_PIN);
-//    }
+    
 }
 
 
@@ -125,14 +177,14 @@ void GROUP1_IRQHandler(void)
 //{
 //	if(EXTI->PR&(1<<2))
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //		if(gpio_get(GPIO_A, Pin_3))
 //			Encoder_count1 --;
 //		else
 //			Encoder_count1 ++;
 //
 
-//		EXTI->PR = 1<<2; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<2; //æ¸…é™¤æ ‡å¿—ä½
 //
 //
 //	}
@@ -141,9 +193,9 @@ void GROUP1_IRQHandler(void)
 //{
 //	if(EXTI->PR&(1<<3))
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //
-//		EXTI->PR = 1<<3; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<3; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //}
 
@@ -151,12 +203,12 @@ void GROUP1_IRQHandler(void)
 //{
 //	if(EXTI->PR&(1<<4))
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //		if(gpio_get(GPIO_A, Pin_5))
 //			Encoder_count2 ++;
 //		else
 //			Encoder_count2 --;
-//		EXTI->PR = 1<<4; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<4; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 // }
 
@@ -164,37 +216,37 @@ void GROUP1_IRQHandler(void)
 //{
 //	if(EXTI->PR&(1<<5))   //EXTI5  PA5/PB5/PC5
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 
-//		EXTI->PR = 1<<5; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<5; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //
 //	if(EXTI->PR&(1<<6))   //EXTI6  PA6/PB6/PC6
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //
-//		EXTI->PR = 1<<6; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<6; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //
 //	if(EXTI->PR&(1<<7))   //EXTI7  PA7/PB7/PC7
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //
 //
-//		EXTI->PR = 1<<7; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<7; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //
 //	if(EXTI->PR&(1<<8))   //EXTI8
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //
-//		EXTI->PR = 1<<8; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<8; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //
 //	if(EXTI->PR&(1<<9))   //EXTI9
 //	{
-//		//´Ë´¦±àÐ´ÖÐ¶Ï´úÂë
+//		//æ­¤å¤„ç¼–å†™ä¸­æ–­ä»£ç 
 //
-//		EXTI->PR = 1<<9; //Çå³ý±êÖ¾Î»
+//		EXTI->PR = 1<<9; //æ¸…é™¤æ ‡å¿—ä½
 //	}
 //}

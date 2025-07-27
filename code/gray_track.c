@@ -14,107 +14,179 @@
 
 void track()                        //1234 5678
 {
-        if((D4 == 0)&&(D5 == 0))        //1110 0111
+        if((DD4 == 0)&&(DD5 == 0))        //1110 0111
         {
-            motor_target_set(225,225);
+            motor_target_set(25,25);
         }
-        else if((D4 == 0)&&(D5 != 0))   //1110 1111
+        else if((DD4 == 0)&&(DD5 != 0))   //1110 1111
         {
-            motor_target_set(150,180);
+            motor_target_set(24,25);
         }
-        else if((D4 != 0)&&(D5 == 0))   //1111 0111
+        else if((DD4 != 0)&&(DD5 == 0))   //1111 0111
         {
-            motor_target_set(180,150);  
+            motor_target_set(25,24);  
         }
-        else if((D3 != 0)&&(D4 == 0))   //1100 1111
+        else if((DD3 != 0)&&(DD4 == 0))   //1100 1111
         {
-            motor_target_set(135,195);
+            motor_target_set(24,25);
         }
-        else if((D5 == 0)&&(D6 == 0))   //1111 0011
+        else if((DD5 == 0)&&(DD6 == 0))   //1111 0011
         {
-            motor_target_set(195,135);
+            motor_target_set(25,24);
         }
-        else if((D3 == 0)&&(D4 != 0))   //1101 1111
+        else if((DD3 == 0)&&(DD4 != 0))   //1101 1111
         {
-            motor_target_set(135,195);
+            motor_target_set(24,26);
         }
-        else if((D5 != 0)&&(D6 == 0))   //1111 1011
+        else if((DD5 != 0)&&(DD6 == 0))   //1111 1011
         {
-            motor_target_set(195,135);
+            motor_target_set(26,24);
         }
-        else if((D2 == 0)&&(D3 == 0))   //1001 1111
+        else if((DD2 == 0)&&(DD3 == 0))   //1001 1111
         {
-            motor_target_set(120,225);
+            motor_target_set(23,27);
         }
-        else if((D6 == 0)&&(D7 == 0))   //1111 1001
+        else if((DD6 == 0)&&(DD7 == 0))   //1111 1001
         {
-            motor_target_set(225,120);
+            motor_target_set(27,23);
         }
-        else if((D2 == 0)&&(D3 != 0))   //1011 1111
+        else if((DD2 == 0)&&(DD3 != 0))   //1011 1111
         {
-            motor_target_set(120,225);
+            motor_target_set(23,28);
         }
-        else if((D6 != 0)&&(D7 == 0))   //1111 1101
+        else if((DD6 != 0)&&(DD7 == 0))   //1111 1101
         {
-            motor_target_set(225,120);
+            motor_target_set(28,23);
         }
-        else if((D1 == 0)&&(D2 == 0))   //0011 1111
+        else if((DD1 == 0)&&(DD2 == 0))   //0011 1111
         {
-            motor_target_set(90,300);
+            motor_target_set(20,29);
         }
-        else if((D7 == 0)&&(D8 == 0))   //1111 1100
+        else if((DD7 == 0)&&(DD8 == 0))   //1111 1100
         {
-            motor_target_set(300,90);
+            motor_target_set(29,20);
         }
-        else if((D1 == 0)&&(D2 != 0))   //0111 1111
+        else if((DD1 == 0)&&(DD2 != 0))   //0111 1111
         {
-            motor_target_set(60,300);
+            motor_target_set(6,32);
         }    
-        else if((D7 !=0)&&(D8 == 0))    //1111 1110
+        else if((DD7 !=0)&&(DD8 == 0))    //1111 1110
         {
-            motor_target_set(330,60);
+            motor_target_set(32,6);
         }
         else                            //1111 1111
         {
-            motor_target_set(225,225);
+            motor_target_set(25,25);
         }
 }
 
-unsigned char digtal(unsigned char channel)//1-8	  ��ȡXͨ������ֵ
+// void track() {
+//     if ((DD4 == 0) && (DD5 == 0)) {         // 居中
+//         motor_target_set(200, 200);
+//     } else if ((DD4 == 0) && (DD5 == 1)) {  // 轻微右偏
+//         motor_target_set(195, 200);
+//     } else if ((DD4 == 1) && (DD5 == 0)) {  // 轻微左偏
+//         motor_target_set(200, 195);
+//     } else if ((DD3 == 0) && (DD4 == 1)) {  // 中度右偏
+//         motor_target_set(180, 200);
+//     } else if ((DD5 == 1) && (DD6 == 0)) {  // 中度左偏
+//         motor_target_set(200, 180);
+//     } else if ((DD2 == 0) && (DD3 == 1)) {  // 严重右偏
+//         motor_target_set(125, 190);
+//     } else if ((DD6 == 1) && (DD7 == 0)) {  // 严重左偏
+//         motor_target_set(190, 125);
+//     } else if ((DD1 == 0) && (DD2 == 1)) {  // 极右偏
+//         motor_target_set(90, 165);
+//     } else if ((DD7 == 1) && (DD8 == 0)) {  // 极左偏
+//         motor_target_set(165, 90);
+//     } else {                                // 其他情况（如脱线）
+//         motor_target_set(200, 200);             // 停转或自定义搜索逻辑
+//     }
+// }
+
+// void track() {								//计算速度代码放在定时器里
+//     if ((DD4 == 0) && (DD5 == 0)) {         // 居中
+//         motor_target_set(35, 35);            // 40→35 (-5)
+//     } else if ((DD4 == 0) && (DD5 == 1)) {  // 轻微右偏
+//         motor_target_set(35, 35);            // 40→35 (-5)
+//     } else if ((DD4 == 1) && (DD5 == 0)) {  // 轻微左偏
+//         motor_target_set(35, 35);            // 40→35 (-5)
+//     } else if ((DD3 == 0) && (DD4 == 1)) {  // 中度右偏
+//         motor_target_set(34, 35);            // 39→34 (-5), 40→35 (-5)
+//     } else if ((DD5 == 1) && (DD6 == 0)) {  // 中度左偏
+//         motor_target_set(35, 34);            // 40→35 (-5), 39→34 (-5)
+//     } else if ((DD2 == 0) && (DD3 == 1)) {  // 严重右偏
+//         motor_target_set(25, 37);            // 30→25 (-5), 42→37 (-5)
+//     } else if ((DD6 == 1) && (DD7 == 0)) {  // 严重左偏
+//         motor_target_set(37, 25);            // 42→37 (-5), 30→25 (-5)
+//     } else if ((DD1 == 0) && (DD2 == 1)) {  // 极右偏
+//         motor_target_set(17, 40);            // 22→17 (-5), 45→40 (-5)
+//     } else if ((DD7 == 1) && (DD8 == 0)) {  // 极左偏
+//         motor_target_set(40, 17);            // 45→40 (-5), 22→17 (-5)
+//     } else {                                // 其他情况（如脱线）
+//         motor_target_set(40, 40);            // 40→35 (-5)
+//     }
+// }
+
+// void track() {									//计算速度代码放在pid里
+//     if ((DD4 == 0) && (DD5 == 0)) {         // 居中
+//         motor_target_set(35, 35);            // 40→35 (-5)
+//     } else if ((DD4 == 0) && (DD5 == 1)) {  // 轻微右偏
+//         motor_target_set(35, 35);            // 40→35 (-5
+//     } else if ((DD4 == 1) && (DD5 == 0)) {  // 轻微左偏
+//         motor_target_set(35, 35);            // 40→35 (-5
+//     } else if ((DD3 == 0) && (DD4 == 1)) {  // 中度右偏
+//         motor_target_set(33, 35);            // 39→34 (-5), 40→35 (-5)
+//     } else if ((DD5 == 1) && (DD6 == 0)) {  // 中度左偏
+//         motor_target_set(35, 33);            // 40→35 (-5), 39→34 (-5)
+//     } else if ((DD2 == 0) && (DD3 == 1)) {  // 严重右偏
+//         motor_target_set(34, 37);            // 30→25 (-5), 42→37 (-5)
+//     } else if ((DD6 == 1) && (DD7 == 0)) {  // 严重左偏
+//         motor_target_set(37, 34);            // 42→37 (-5), 30→25 (-5)
+//     } else if ((DD1 == 0) && (DD2 == 1)) {  // 极右偏
+//         motor_target_set(17, 40);            // 22→17 (-5), 45→40 (-5)
+//     } else if ((DD7 == 1) && (DD8 == 0)) {  // 极左偏
+//         motor_target_set(40, 17);            // 45→40 (-5), 22→17 (-5)
+//     } else {                                // 其他情况（如脱线）
+//         motor_target_set(35, 35);            // 40→35 (-5)
+//     }
+// }
+
+unsigned char digtal(unsigned char channel)//1-8	  ��ȡXͨ������ֵ
 {
 	uint8_t value = 0;
 	switch(channel) 
 	{
 		case 1:  
-			if(gpio_get(track_PIN_1_PORT, track_PIN_1_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D1_PORT, GRAY_D1_PIN) ) value = 1;
 			else value = 0;  
 			break;  
 		case 2: 
-			if(gpio_get(track_PIN_2_PORT, track_PIN_2_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D2_PORT, GRAY_D2_PIN) ) value = 1;
 			else value = 0;  
 			break;  
 		case 3: 
-			if(gpio_get(track_PIN_3_PORT, track_PIN_3_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D3_PORT, GRAY_D3_PIN) ) value = 1;
 			else value = 0;  
 			break;   
 		case 4:  
-			if(gpio_get(track_PIN_4_PORT, track_PIN_4_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D4_PORT, GRAY_D4_PIN) ) value = 1;
 			else value = 0;  
 			break;   
 		case 5:
-			if(gpio_get(track_PIN_5_PORT, track_PIN_5_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D5_PORT, GRAY_D5_PIN) ) value = 1;
 			else value = 0;  
 			break;
 		case 6:  
-			if(gpio_get(track_PIN_6_PORT, track_PIN_6_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D6_PORT, GRAY_D6_PIN) ) value = 1;
 			else value = 0;  
 			break;  
 		case 7: 
-			if(gpio_get(track_PIN_7_PORT, track_PIN_7_PIN) == 1) value = 1;
+			if(gpio_get(GRAY_D7_PORT, GRAY_D7_PIN) ) value = 1;
 			else value = 0;  
 			break;  
  		case 8: 
- 			if(gpio_get(track_PIN_8_PORT, track_PIN_8_PIN) == 1) value = 1;
+ 			if(gpio_get(GRAY_D8_PORT, GRAY_D8_PIN) ) value = 1;
  			else value = 0;  
  			break;   
 	}

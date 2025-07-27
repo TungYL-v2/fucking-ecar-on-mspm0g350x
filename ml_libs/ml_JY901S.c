@@ -8,15 +8,48 @@ const float YAW_SCALE = 180.0f / 32768.0f;
 
 void JY901S_Write(uint8_t reg, uint16_t dat)
 {
-    uint8_t data[3] = {reg, (uint8_t)(dat & 0xFF), (uint8_t)(dat >> 8)};
-    I2C_Write(JYaddr, reg, &data[1], 2); // 使用上面的I2C_Write函数
+    MyI2C_Start();
+    MyI2C_SendByte(JYaddr << 1);
+    MyI2C_ReceiveAck();
+    MyI2C_SendByte(reg);
+    MyI2C_ReceiveAck();
+    MyI2C_SendByte(dat & 0xFF);
+    MyI2C_ReceiveAck();
+    MyI2C_SendByte(dat >> 8);
+    MyI2C_ReceiveAck();
+    MyI2C_Stop();
+
 }
 
 uint16_t JY901S_Read(uint8_t reg)
 {
-    uint8_t data[2];
-    I2C_Read(JYaddr, reg, data, 2); // 使用上面的I2C_Read函数
-    return (data[1] << 8) | data[0];
+    uint8_t low,high;
+    MyI2C_Start();
+    MyI2C_SendByte(JYaddr << 1);     // 写地址
+    if(MyI2C_ReceiveAck())
+		goto ERROR;
+    MyI2C_SendByte(reg);                  // 起始寄存器地址
+    if(MyI2C_ReceiveAck())
+		goto ERROR;
+	
+    MyI2C_Start();
+    MyI2C_SendByte((JYaddr << 1) | 1); // 读地址
+    if(MyI2C_ReceiveAck())
+		goto ERROR;
+    
+    low = MyI2C_ReceiveByte();     //低字节
+    MyI2C_SendAck(0);
+
+    high = MyI2C_ReceiveByte();      // 高字节
+    MyI2C_SendAck(1);
+
+    MyI2C_Stop();
+	
+	return (high << 8) | low;
+	
+	ERROR:
+		MyI2C_Stop();
+		return yaw_gyro;
 }
 
 // 其余函数保持不变...
@@ -53,10 +86,14 @@ void JY901S_Init(void)
 		yaw_o = JY901S_Read(JY901_REG_YAW) * YAW_SCALE; 
 		delay_ms(100);
 	}
+  
+  last_yaw = 180;
+	yaw = 180;
+  
 }
 
 
-void JY901S_GetData(void)
+void JY61P_GetData(void)
 {
     
     last_yaw = yaw;
@@ -67,7 +104,8 @@ void JY901S_GetData(void)
     else
         yaw_gyro = yaw; // yaw_gyro更新
 
-    // yaw_gyro   = JY901S_Read(JY901_REG_YAW)/ 32768.0 * 180.0;  // Z轴角度
+    yaw = yaw + 180;
+    yaw_gyro = yaw >= 360 ? yaw - 360 : yaw;
 
 }
 

@@ -1,20 +1,21 @@
-#include "ml_pwm.h"
+#include "headfile.h"
 
 
-//sysconfig Éè¶¨ gPWM_motorConfig.period = 32500
-const float DUTY_SCALE = 32500 / MAX_DUTY;
-
+//sysconfig è®¾å®š gPWM_motorConfig.period = 30000
+//
 //-------------------------------------------------------------------------------------------------------------------
-// @brief		PWMÕ¼¿Õ±È¸üÐÂ
-// @param	  gptimer		Ñ¡Ôñ¶¨Ê±Æ÷
-// @param	  ccIndex		Ñ¡Ôñ¶¨Ê±Æ÷Í¨µÀ
-// @param	  duty    		¸üÐÂ¹¦ÂÊ
+// @brief		PWMå ç©ºæ¯”æ›´æ–°
+// @param	  gptimer		é€‰æ‹©å®šæ—¶å™¨
+// @param	  ccIndex		é€‰æ‹©å®šæ—¶å™¨é€šé“
+// @param	  duty    		æ›´æ–°åŠŸçŽ‡
 // @return		void  
 // Sample usage:	pwm_update(PWM_motor_INST,DL_TIMER_CC_0_INDEX,0);     
 //-------------------------------------------------------------------------------------------------------------------
 void pwm_update(GPTIMER_Regs *gptimer, DL_TIMER_CC_INDEX ccIndex, uint16_t duty)
 {
-	uint32_t value = 32500 - duty * DUTY_SCALE;			//32500 - 32500 * (duty/50000)
+	uint32_t value = duty ;
+	if (value >= 47500)
+		value = 47500;
 	DL_Timer_setCaptureCompareValue(gptimer, value, ccIndex);
 //	DL_TimerA_setCaptureCompareValue(PWM_motor_INST, 62, DL_TIMER_CC_0_INDEX);
 }

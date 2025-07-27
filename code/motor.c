@@ -5,8 +5,8 @@
 #define MOTOR_BIN1_PIN Pin_0	//PB0
 #define MOTOR_BIN2_PIN Pin_1	//PB1
 
-uint8_t motorA_dir = 1; // 1ÎªÕı×ª 0Îª·´×ª
-uint8_t motorB_dir = 1;
+volatile uint8_t motorA_dir = 1; // 1ä¸ºæ­£è½¬ 0ä¸ºåè½¬
+volatile uint8_t motorB_dir = 1;
 
 int Encoder_count1 = 0;
 int Encoder_count2 = 0;
@@ -16,16 +16,16 @@ int speed_now;
 
 void motor_init()
 {
-	//Æô¶¯PWM¼ÆÊ±Æ÷
+	//å¯åŠ¨PWMè®¡æ—¶å™¨
 	DL_TimerG_startCounter(PWM_motor_INST);
 	
-	//pwm_init(TIM_2,TIM2_CH1,1000);   //µç»ú1
-	//pwm_init(TIM_2,TIM2_CH2,1000);   //µç»ú2
+	//pwm_init(TIM_2,TIM2_CH1,1000);   //ç”µæœº1
+	//pwm_init(TIM_2,TIM2_CH2,1000);   //ç”µæœº2
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// @brief		¿ØÖÆ×ªËÙ
-// @param	  duty	  pwmÕ¼±È£¬max50000
+// @brief		æ§åˆ¶è½¬é€Ÿ
+// @param	  duty	  pwmå æ¯”ï¼Œmax50000
 // @return		void  
 //-------------------------------------------------------------------------------------------------------------------
 void motorA_duty(int duty)   //MOTOR_LEFT
@@ -49,7 +49,7 @@ void motor_stop(void)
 	gpio_set(motor_BIN1_PORT,motor_BIN1_PIN,1);
 	gpio_set(motor_BIN2_PORT,motor_BIN2_PIN,1);
 }
-// ±àÂëÆ÷IO³õÊ¼»¯
+// ç¼–ç å™¨IOåˆå§‹åŒ–
  void encoder_init()
  {
  	NVIC_EnableIRQ(motor_INT_IRQN);  
