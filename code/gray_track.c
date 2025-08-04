@@ -11,74 +11,276 @@
 //	gpio_init(GPIO_C, Pin_14, IU);   // D7
 //	gpio_init(GPIO_C, Pin_15, IU);   // D8
 //}
+// void track()                        //1234 5678
+// {
+//         if((DD4 == 0)&&(DD5 == 0))        //1110 0111
+//         {
+//             motor_target_set(525,525);      
+//         }
+//         else if((DD4 == 0)&&(DD5 != 0))   //1110 1111
+//         {
+//             motor_target_set(515,525);       
+//         }
+//         else if((DD4 != 0)&&(DD5 == 0))   //1111 0111
+//         {
+//             motor_target_set(525,515);       
+//         }
+//         else if((DD3 != 0)&&(DD4 == 0))   //1100 1111
+//         {
+//             motor_target_set(508,520);        
+//         }
+//         else if((DD5 == 0)&&(DD6 == 0))   //1111 0011
+//         {
+//             motor_target_set(520,500);        
+//         }
+//         else if((DD3 == 0)&&(DD4 != 0))   //1101 1111
+//         {
+//             motor_target_set(500,520);        
+//         }
+//         else if((DD5 != 0)&&(DD6 == 0))   //1111 1011
+//         {
+//             motor_target_set(520,500);        
+//         }
+//         else if((DD2 == 0)&&(DD3 == 0))   //1001 1111
+//         {
+//             motor_target_set(440,550);        
+//         }
+//         else if((DD6 == 0)&&(DD7 == 0))   //1111 1001
+//         {
+//             motor_target_set(550,440);        
+//         }
+//         else if((DD2 == 0)&&(DD3 != 0))   //1011 1111
+//         {
+//             motor_target_set(430,570);        
+//         }
+//         else if((DD6 != 0)&&(DD7 == 0))  //1111 1101
+//         {
+//             motor_target_set(570,430);         
+//         }
+//         else if((DD1 == 0)&&(DD2 == 0))   //0011 1111
+//         {
+//             motor_target_set(380,580);         
+//         }
+//         else if((DD7 == 0)&&(DD8 == 0))   //1111 1100
+//         {
+//             motor_target_set(600,330);        
+//         }
+//         else if((DD1 == 0)&&(DD2 != 0))   //0111 1111
+//         {
+//             motor_target_set(350,570);         
+//         }    
+//         else if((DD7 !=0)&&(DD8 == 0))    //1111 1110
+//         {
+//             motor_target_set(570,90);         
+//         }
+//         else                            //1111 1111
+//         {
+//             motor_target_set(525,525);        
+//         }
+// }
 
+// void track()                        //1234 5678
+// {
+//         if((DD4 == 0)&&(DD5 == 0))        //1110 0111
+//         {
+//             motor_target_set(200,200);      
+//         }
+//         else if((DD4 == 0)&&(DD5 != 0))   //1110 1111
+//         {
+//             motor_target_set(196,200);       
+//         }
+//         else if((DD4 != 0)&&(DD5 == 0))   //1111 0111
+//         {
+//             motor_target_set(200,196);       
+//         }
+//         else if((DD3 != 0)&&(DD4 == 0))   //1100 1111
+//         {
+//             motor_target_set(193,198);        
+//         }
+//         else if((DD5 == 0)&&(DD6 == 0))   //1111 0011
+//         {
+//             motor_target_set(198,190);        
+//         }
+//         else if((DD3 == 0)&&(DD4 != 0))   //1101 1111
+//         {
+//             motor_target_set(190,198);        
+//         }
+//         else if((DD5 != 0)&&(DD6 == 0))   //1111 1011
+//         {
+//             motor_target_set(198,190);        
+//         }
+//         else if((DD2 == 0)&&(DD3 == 0))   //1001 1111
+//         {
+//             motor_target_set(168,209);        
+//         }
+//         else if((DD6 == 0)&&(DD7 == 0))   //1111 1001
+//         {
+//             motor_target_set(209,168);        
+//         }
+//         else if((DD2 == 0)&&(DD3 != 0))   //1011 1111
+//         {
+//             motor_target_set(164,217);        
+//         }
+//         else if((DD6 != 0)&&(DD7 == 0))  //1111 1101
+//         {
+//             motor_target_set(217,164);         
+//         }
+//         else if((DD1 == 0)&&(DD2 == 0))   //0011 1111
+//         {
+//             motor_target_set(145,221);         
+//         }
+//         else if((DD7 == 0)&&(DD8 == 0))   //1111 1100
+//         {
+//             motor_target_set(229,126);        
+//         }
+//         else if((DD1 == 0)&&(DD2 != 0))   //0111 1111
+//         {
+//             motor_target_set(133,217);         
+//         }    
+//         else if((DD7 !=0)&&(DD8 == 0))    //1111 1110
+//         {
+//             motor_target_set(217,34);         
+//         }
+//         else                            //1111 1111
+//         {
+//             motor_target_set(200,200);        
+//         }
+// }
 void track()                        //1234 5678
 {
-        if((DD4 == 0)&&(DD5 == 0))        //1110 0111
+        if((DD5 == 1)&&(DD4 == 1))        //0001 1000
         {
-            motor_target_set(25,25);
+            motor_target_set(374,374);      
         }
-        else if((DD4 == 0)&&(DD5 != 0))   //1110 1111
+        else if((DD5 != 1)&&(DD4 == 1))   //0000 1000
         {
-            motor_target_set(24,25);
+            motor_target_set(374,370);       
         }
-        else if((DD4 != 0)&&(DD5 == 0))   //1111 0111
+        else if((DD5 == 1)&&(DD4 != 1))   //0001 0000
         {
-            motor_target_set(25,24);  
+            motor_target_set(370,374);       
         }
-        else if((DD3 != 0)&&(DD4 == 0))   //1100 1111
+        else if((DD4 == 1)&&(DD3 == 1))   //0000 1100
         {
-            motor_target_set(24,25);
+            motor_target_set(375,355);        
         }
-        else if((DD5 == 0)&&(DD6 == 0))   //1111 0011
+        else if((DD6 == 1)&&(DD5 == 1))   //0011 0000
         {
-            motor_target_set(25,24);
+            motor_target_set(325,390);        
         }
-        else if((DD3 == 0)&&(DD4 != 0))   //1101 1111
+        else if((DD4 == !1)&&(DD3 == 1))   //0000 0100
         {
-            motor_target_set(24,26);
+            motor_target_set(375,355);        
         }
-        else if((DD5 != 0)&&(DD6 == 0))   //1111 1011
+        else if((DD6 == 1)&&(DD5 != 1))   //0010 0000
         {
-            motor_target_set(26,24);
+            motor_target_set(335,395);        
         }
-        else if((DD2 == 0)&&(DD3 == 0))   //1001 1111
+        else if((DD3 == 1)&&(DD2 == 1))   //0000 0110
         {
-            motor_target_set(23,27);
+            motor_target_set(391,314);        
         }
-        else if((DD6 == 0)&&(DD7 == 0))   //1111 1001
+        else if((DD7 == 1)&&(DD6 == 1))   //0110 0000
         {
-            motor_target_set(27,23);
+            motor_target_set(314,391);        
         }
-        else if((DD2 == 0)&&(DD3 != 0))   //1011 1111
+        else if((DD3 != 1)&&(DD2 == 1))   //0000 0010
         {
-            motor_target_set(23,28);
+            motor_target_set(406,307);        
         }
-        else if((DD6 != 0)&&(DD7 == 0))   //1111 1101
+        else if((DD7 == 1)&&(DD6 != 1))  //0100 0000
         {
-            motor_target_set(28,23);
+            motor_target_set(280,406);      
         }
-        else if((DD1 == 0)&&(DD2 == 0))   //0011 1111
+        else if((DD2 == 1)&&(DD1 == 1))   //0000 0011
         {
-            motor_target_set(20,29);
+            motor_target_set(413,272);         
         }
-        else if((DD7 == 0)&&(DD8 == 0))   //1111 1100
+        else if((DD8 == 1)&&(DD7 == 1))   //1100 0000
         {
-            motor_target_set(29,20);
+            motor_target_set(236,445);        
         }
-        else if((DD1 == 0)&&(DD2 != 0))   //0111 1111
+        else if((DD2 != 1)&&(DD1 == 1))   //0000 0001
         {
-            motor_target_set(6,32);
+            motor_target_set(390,74);         
         }    
-        else if((DD7 !=0)&&(DD8 == 0))    //1111 1110
+        else if((DD8 == 1)&&(DD7 !=1))    //1000 0000
         {
-            motor_target_set(32,6);
+            motor_target_set(74,390);         
         }
         else                            //1111 1111
         {
-            motor_target_set(25,25);
+            motor_target_set(374,374);        
         }
 }
+
+// void track()                        //1234 5678
+// {
+//         if((DD4 == 0)&&(DD5 == 0))        //1110 0111
+//         {
+//             motor_target_set(525,525);      
+//         }
+//         else if((DD4 == 0)&&(DD5 != 0))   //1110 1111
+//         {
+//             motor_target_set(515,525);       
+//         }
+//         else if((DD4 != 0)&&(DD5 == 0))   //1111 0111
+//         {
+//             motor_target_set(525,515);       
+//         }
+//         else if((DD3 != 0)&&(DD4 == 0))   //1100 1111
+//         {
+//             motor_target_set(508,520);        
+//         }
+//         else if((DD5 == 0)&&(DD6 == 0))   //1111 0011
+//         {
+//             motor_target_set(520,500);        
+//         }
+//         else if((DD3 == 0)&&(DD4 != 0))   //1101 1111
+//         {
+//             motor_target_set(500,520);        
+//         }
+//         else if((DD5 != 0)&&(DD6 == 0))   //1111 1011
+//         {
+//             motor_target_set(520,500);        
+//         }
+//         else if((DD2 == 0)&&(DD3 == 0))   //1001 1111
+//         {
+//             motor_target_set(440,550);        
+//         }
+//         else if((DD6 == 0)&&(DD7 == 0))   //1111 1001
+//         {
+//             motor_target_set(550,440);        
+//         }
+//         else if((DD2 == 0)&&(DD3 != 0))   //1011 1111
+//         {
+//             motor_target_set(430,570);        
+//         }
+//         else if((DD6 != 0)&&(DD7 == 0))  //1111 1101
+//         {
+//             motor_target_set(570,430);         
+//         }
+//         else if((DD1 == 0)&&(DD2 == 0))   //0011 1111
+//         {
+//             motor_target_set(380,580);         
+//         }
+//         else if((DD7 == 0)&&(DD8 == 0))   //1111 1100
+//         {
+//             motor_target_set(600,330);        
+//         }
+//         else if((DD1 == 0)&&(DD2 != 0))   //0111 1111
+//         {
+//             motor_target_set(350,570);         
+//         }    
+//         else if((DD7 !=0)&&(DD8 == 0))    //1111 1110
+//         {
+//             motor_target_set(570,90);         
+//         }
+//         else                            //1111 1111
+//         {
+//             motor_target_set(525,525);        
+//         }
+// }
 
 // void track() {
 //     if ((DD4 == 0) && (DD5 == 0)) {         // 居中

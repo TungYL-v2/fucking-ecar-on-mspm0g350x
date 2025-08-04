@@ -6,6 +6,8 @@
 "./code/gray_track.o"
 "./code/motor.o"
 "./code/pid.o"
+"./code/task.o"
+"./ml_libs/42step_motor.o"
 "./ml_libs/clock.o"
 "./ml_libs/ml_JY901S.o"
 "./ml_libs/ml_gpio.o"
@@ -14,7 +16,6 @@
 "./ml_libs/ml_uart.o"
 "./ml_libs/my_i2c.o"
 "./ml_libs/oled_hardware_i2c.o"
-"./ml_libs/step_motor.o"
 -l"./device_linker.cmd"
 -ldevice.cmd.genlibs
 -llibc.a

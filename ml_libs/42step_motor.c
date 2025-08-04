@@ -13,14 +13,14 @@ void step(struct STEP_MOTOR *step_motor, int8_t dir)
 {
     switch (step_motor -> number) 
     {
-        // in1 --> dir
+        // in1 --> en
         // in2 --> step
-        // in3 --> en
+        // in3 --> dir
         case 0:
         if(dir == 1)
-            DL_GPIO_setPins(STEP_MOTOR_LR_LR_IN1_PORT, STEP_MOTOR_LR_LR_IN1_PIN);
+            DL_GPIO_setPins(STEP_MOTOR_LR_LR_IN3_PORT, STEP_MOTOR_LR_LR_IN3_PIN);
         else
-            DL_GPIO_clearPins(STEP_MOTOR_LR_LR_IN1_PORT, STEP_MOTOR_LR_LR_IN1_PIN);
+            DL_GPIO_clearPins(STEP_MOTOR_LR_LR_IN3_PORT, STEP_MOTOR_LR_LR_IN3_PIN);
 
         DL_GPIO_togglePins(STEP_MOTOR_LR_LR_IN2_PORT, STEP_MOTOR_LR_LR_IN2_PIN);
         delay_ms(1);
@@ -28,13 +28,13 @@ void step(struct STEP_MOTOR *step_motor, int8_t dir)
         break;
         case 1:
         if(dir == 1)
-            DL_GPIO_setPins(STEP_MOTOR_UD_UD_IN1_PORT, STEP_MOTOR_UD_UD_IN1_PIN);
+            DL_GPIO_setPins(STEP_MOTOR_UD_PORT, STEP_MOTOR_UD_UD_IN1_PIN);
         else
-            DL_GPIO_clearPins(STEP_MOTOR_UD_UD_IN1_PORT, STEP_MOTOR_UD_UD_IN1_PIN);
+            DL_GPIO_clearPins(STEP_MOTOR_UD_PORT, STEP_MOTOR_UD_UD_IN1_PIN);
 
-        DL_GPIO_togglePins(STEP_MOTOR_UD_UD_IN2_PORT, STEP_MOTOR_UD_UD_IN2_PIN);
+        DL_GPIO_togglePins(STEP_MOTOR_UD_PORT, STEP_MOTOR_UD_UD_IN2_PIN);
         delay_ms(1);
-        DL_GPIO_togglePins(STEP_MOTOR_UD_UD_IN2_PORT, STEP_MOTOR_UD_UD_IN2_PIN);
+        DL_GPIO_togglePins(STEP_MOTOR_UD_PORT, STEP_MOTOR_UD_UD_IN2_PIN);
         break;
         default:
         break;

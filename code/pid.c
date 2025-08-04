@@ -30,7 +30,7 @@ void pid_init(pid_t *pid, uint32_t mode, float p, float i, float d)
 	pid->d = d;
 }
 
-void motor_target_set(uint8_t spe1, uint8_t spe2)
+void motor_target_set(uint16_t spe1, uint16_t spe2)
 {
 
 	if(spe1 >= 0)
@@ -57,7 +57,7 @@ void motor_target_set(uint8_t spe1, uint8_t spe2)
 }
 
 
-void pid_control_line(uint8_t spe1,uint8_t spe2)
+void pid_control_line(uint16_t spe1,uint16_t spe2)
 {
 	if(spe1 >= 0)
 	{
@@ -80,10 +80,10 @@ void pid_control_line(uint8_t spe1,uint8_t spe2)
 		motorB_dir = 0;
 		motorB.target = -spe2;
 	}
-	// if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
-	// if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
-	// Encoder_count1 = 0;
-	// Encoder_count2 = 0;
+	if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+	if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+	Encoder_count1 = 0;
+	Encoder_count2 = 0;
 	// 电机状态输入pid控制器(传入结构体地址)
 	pid_cal(&motorA);
 	pid_cal(&motorB);
@@ -102,10 +102,10 @@ void pid_control()
 	// 灰度传感器调节速度
 	track();
 
-	// if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
-	// if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
-	// Encoder_count1 = 0;
-	// Encoder_count2 = 0;
+	if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+	if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+	Encoder_count1 = 0;
+	Encoder_count2 = 0;
 
 	pid_cal(&motorA);
 	pid_cal(&motorB);
@@ -144,10 +144,10 @@ void pid_control_angle(int ang)
 		motorB.target = -angle.out;
 	}
 
-    // if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
-    // if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
-    // Encoder_count1 = 0;
-    // Encoder_count2 = 0;
+    if(motorA_dir){motorA.now = Encoder_count1;}else{motorA.now = -Encoder_count1;}
+    if(motorB_dir){motorB.now = Encoder_count2;}else{motorB.now = -Encoder_count2;}
+    Encoder_count1 = 0;
+    Encoder_count2 = 0;
 
     pid_cal(&motorA);
     pid_cal(&motorB);
@@ -210,8 +210,8 @@ void pidout_limit(pid_t *pid)
 void pidout_limit_angle(pid_t *pid)
 {
 	// 输出限幅
-	if(pid->out>=12000)	
-		pid->out=12000;
+	if(pid->out>=13000)	
+		pid->out=13000;
 	if(pid->out<=0)	
 		pid->out=0;
 }

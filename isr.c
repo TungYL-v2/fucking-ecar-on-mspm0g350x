@@ -182,7 +182,7 @@ void UART_1_INST_IRQHandler(void)
 }
 
 
-
+extern volatile uint8_t N_target;
 ////以下为外部中断服务函数
 void GROUP1_IRQHandler(void)
 {
@@ -192,6 +192,7 @@ void GROUP1_IRQHandler(void)
      */
     uint32_t gpioA = DL_GPIO_getEnabledInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
     uint32_t gpioB = DL_GPIO_getEnabledInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
+    uint32_t gpioc = DL_GPIO_getEnabledInterruptStatus(STEP_KEY_QUAN_PORT, STEP_KEY_QUAN_PIN);
 
     /*
      * Bitwise AND the pending interrupt with the pin you want to check,
@@ -228,6 +229,18 @@ void GROUP1_IRQHandler(void)
         DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
     }
 
+    if ((gpioc & STEP_KEY_QUAN_PIN) == STEP_KEY_QUAN_PIN)
+    {
+        if (!DL_GPIO_readPins(STEP_KEY_QUAN_PORT, STEP_KEY_QUAN_PIN)) 
+        {
+            N_target ++;
+            if(N_target >= 5)
+            {
+                N_target = 5;
+            }
+        }
+        DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
+    }
     // else if ((gpioB & motor_E2B_PIN) == motor_E2B_PIN)
     // {
     //     if(gpio_get(motor_E2A_PORT, motor_E2A_PIN))
