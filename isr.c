@@ -190,8 +190,8 @@ void GROUP1_IRQHandler(void)
      * Get the pending interrupt for the GPIOA port and store for
      * comparisons later
      */
-    uint32_t gpioA = DL_GPIO_getEnabledInterruptStatus(motor_E1A_PORT, motor_E1A_PIN | motor_E1B_PIN);
-    uint32_t gpioB = DL_GPIO_getEnabledInterruptStatus(motor_E2A_PORT, motor_E2A_PIN | motor_E2B_PIN);
+    uint32_t gpioA = DL_GPIO_getEnabledInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
+    uint32_t gpioB = DL_GPIO_getEnabledInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
 
     /*
      * Bitwise AND the pending interrupt with the pin you want to check,
@@ -208,14 +208,14 @@ void GROUP1_IRQHandler(void)
         DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1A_PIN);
     }
 
-    else if ((gpioA & motor_E1B_PIN) == motor_E1B_PIN)
-    {
-        if(gpio_get(motor_E1A_PORT, motor_E1A_PIN))
-			Encoder_count1 ++;
-		else
-			Encoder_count1 --;
-        DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1B_PIN);
-    }
+    // else if ((gpioA & motor_E1B_PIN) == motor_E1B_PIN)
+    // {
+    //     if(gpio_get(motor_E1A_PORT, motor_E1A_PIN))
+	// 		Encoder_count1 ++;
+	// 	else
+	// 		Encoder_count1 --;
+    //     DL_GPIO_clearInterruptStatus(motor_E1A_PORT, motor_E1B_PIN);
+    // }
     
     
 
@@ -228,14 +228,14 @@ void GROUP1_IRQHandler(void)
         DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2A_PIN);
     }
 
-    else if ((gpioB & motor_E2B_PIN) == motor_E2B_PIN)
-    {
-        if(gpio_get(motor_E2A_PORT, motor_E2A_PIN))
-			Encoder_count2 --;
-		else
-			Encoder_count2 ++;
-        DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2B_PIN);
-    }
+    // else if ((gpioB & motor_E2B_PIN) == motor_E2B_PIN)
+    // {
+    //     if(gpio_get(motor_E2A_PORT, motor_E2A_PIN))
+	// 		Encoder_count2 --;
+	// 	else
+	// 		Encoder_count2 ++;
+    //     DL_GPIO_clearInterruptStatus(motor_E2A_PORT, motor_E2B_PIN);
+    // }
 
     
 }

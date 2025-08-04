@@ -65,7 +65,6 @@ GPIO3.associatedPins[4].polarity    = "RISE";
 GPIO3.associatedPins[4].pin.$assign = "PB16";
 GPIO3.associatedPins[5].$name       = "E2B";
 GPIO3.associatedPins[5].direction   = "INPUT";
-GPIO3.associatedPins[5].interruptEn = true;
 GPIO3.associatedPins[5].polarity    = "RISE";
 GPIO3.associatedPins[5].pin.$assign = "PB0";
 GPIO3.associatedPins[6].$name       = "E1A";
@@ -75,7 +74,6 @@ GPIO3.associatedPins[6].polarity    = "RISE";
 GPIO3.associatedPins[6].pin.$assign = "PB13";
 GPIO3.associatedPins[7].$name       = "E1B";
 GPIO3.associatedPins[7].direction   = "INPUT";
-GPIO3.associatedPins[7].interruptEn = true;
 GPIO3.associatedPins[7].polarity    = "RISE";
 GPIO3.associatedPins[7].pin.$assign = "PB20";
 
